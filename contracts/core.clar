@@ -20,6 +20,8 @@
 
 ;; data vars
 (define-data-var executive principal tx-sender)
+;; Initialize the list of principals who can vote for proposals with the contract owner.
+(define-data-var voters (list 1337 principal) (list tx-sender))
 ;;
 
 ;; data maps
@@ -45,7 +47,15 @@
 (define-public (construct (proposal <proposal-trait>))
     (let
         ((sender tx-sender))
+
         (asserts! (is-eq sender (var-get executive)) ERR_UNAUTHORIZED)
+
+        ;; Create your first proposal enabling your extensions (membership-token, proposal-submission, proposal-voting) and distribute the initial token allocation to addresses responsible for voting on grants
+        (try! (as-contract (set-extension .membership-token true)))
+        (try! (as-contract (set-extension .proposal-submission true)))
+        (try! (as-contract (set-extension .proposal-voting true)))
+        (try! (as-contract (set-extension .bootstrap true)))
+
         (var-set executive (as-contract tx-sender))
         (as-contract (execute proposal sender))))
 

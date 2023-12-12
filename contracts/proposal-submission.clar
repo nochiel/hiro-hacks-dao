@@ -40,6 +40,7 @@
         (contract-call? .proposal-voting add-proposal       ;; @todo Implement proposal-voting.
                         proposal
                         {
+                            start-block-height: block-height,
                             end-block-height: (+ block-height (try! (get-parameter "proposal-duration"))),
                             proposer: tx-sender,
                             title: title,
