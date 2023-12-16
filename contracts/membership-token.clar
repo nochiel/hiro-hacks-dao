@@ -44,6 +44,7 @@
     (begin
         (try! (is-dao-or-extension))
         (ft-burn? sGrant amount owner)))
+
 ;;
 
 ;; read only functions

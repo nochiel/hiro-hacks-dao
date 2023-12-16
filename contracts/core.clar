@@ -21,7 +21,6 @@
 ;; data vars
 (define-data-var executive principal tx-sender)
 ;; Initialize the list of principals who can vote for proposals with the contract owner.
-(define-data-var voters (list 1337 principal) (list tx-sender))
 ;;
 
 ;; data maps
@@ -48,13 +47,18 @@
     (let
         ((sender tx-sender))
 
+        (print {sender: sender})
+
         (asserts! (is-eq sender (var-get executive)) ERR_UNAUTHORIZED)
 
         ;; Create your first proposal enabling your extensions (membership-token, proposal-submission, proposal-voting) and distribute the initial token allocation to addresses responsible for voting on grants
         (try! (as-contract (set-extension .membership-token true)))
         (try! (as-contract (set-extension .proposal-submission true)))
         (try! (as-contract (set-extension .proposal-voting true)))
-        (try! (as-contract (set-extension .bootstrap true)))
+        (try! (as-contract (set-extension .initial-token-allocation true)))
+
+        ;; @note We canot call membership-token.mint from here becaus we get the error:
+        ;; CircularReference(["proposal-voting", "proposal-submission", "membership-token", "core"])
 
         (var-set executive (as-contract tx-sender))
         (as-contract (execute proposal sender))))
@@ -75,6 +79,9 @@
 (define-read-only (executed-at (proposal <proposal-trait>))
     (map-get? executedProposals (contract-of proposal)))
 
+(define-read-only (get-executive)
+  (ok (var-get executive))
+)
 ;;
 
 ;; private functions
