@@ -56,8 +56,16 @@
         (try! (as-contract (set-extension .proposal-submission true)))
         (try! (as-contract (set-extension .proposal-voting true)))
         (try! (as-contract (set-extension .initial-token-allocation true)))
+        (try! (as-contract (set-extension .grant-proposal true)))
 
-        ;; @note We canot call membership-token.mint from here becaus we get the error:
+        ;; @note I can't add an arbitrary principal as an extension
+        ;; (try! (as-contract (set-extension 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM true)))
+
+        ;; @note Don't add .bootstrap as an extension because it calls .core
+        ;; i.e circular dependency.
+        ;; (try! (as-contract (set-extension .bootstrap true)))
+
+        ;; @note Don't call membership-token.mint from here becaus we get the error:
         ;; CircularReference(["proposal-voting", "proposal-submission", "membership-token", "core"])
 
         (var-set executive (as-contract tx-sender))
