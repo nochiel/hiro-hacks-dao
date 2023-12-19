@@ -55,6 +55,7 @@
         (try! (as-contract (set-extension .membership-token true)))
         (try! (as-contract (set-extension .proposal-submission true)))
         (try! (as-contract (set-extension .proposal-voting true)))
+        (try! (as-contract (set-extension .milestones true)))
         (try! (as-contract (set-extension .initial-token-allocation true)))
         (try! (as-contract (set-extension .grant-proposal true)))
 

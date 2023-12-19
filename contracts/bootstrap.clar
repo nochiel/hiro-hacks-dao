@@ -22,7 +22,6 @@
 
 ;; public functions
 (define-public (challenge-initial-token-allocation)
-
     (begin
         ;; (as-contract (contract-call? .core execute .initial-token-allocation tx-sender)))
         (contract-call? .core construct .initial-token-allocation)

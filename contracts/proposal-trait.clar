@@ -6,7 +6,17 @@
 
 ;; traits
 (define-trait proposal-trait
-    ((execute (principal) (response bool uint))))
+    (
+        (execute (principal) (response bool uint)))
+)
+
+(define-trait milestone-trait
+    (
+        (is-milestone-complete ({proposal: principal, deadline: uint}) (response bool uint))
+        (pay-for-milestone (uint) (response bool uint))
+    )
+)
+
 ;;
 
 ;; token definitions
