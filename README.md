@@ -25,7 +25,7 @@ Once again I only had 6 hours to work on this and so I barely got anything done.
 The challenges to be done are:
 
 - [x] Enable extensions in `construct`.
-- [ ] Distribute initial token allocation.
-- [ ] Create Grant Proposals.
-- [ ] Implement Milestone-Based funding.
+- [x] Distribute initial token allocation.
+- [x] Create Grant Proposals.
+- [x] Implement Milestone-Based funding.
 - [ ] UI Integration.
